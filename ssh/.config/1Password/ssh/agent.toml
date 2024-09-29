@@ -1,0 +1,4 @@
+# The vault holds multiple SSH keys, but they all have their purposes.
+# For SSH logins, let's just ensure the agent has the one we care about.
+[[ssh-keys]]
+item = "xhlqleujlgpotfsgoaua75yb4e"
