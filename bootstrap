@@ -1,0 +1,47 @@
+#!/bin/bash
+
+error() {
+  echo $@ 1>&2
+}
+
+fail() {
+  error "$@"
+  exit 1
+}
+
+print() {
+  echo $@
+}
+
+install_homebrew() {
+  if command -v brew 2>&1 > /dev/null; then
+    print "Homebrew is alrady installed..."
+    return
+  fi
+  /usr/bin/xcode-select --install
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+}
+
+boostrap_macos() {
+  install_homebrew
+}
+
+boostrap_linux() {
+  echo "Nothing to do..."
+}
+
+COMMON_PACKAGES="git tmux"
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  boostrap_macos
+  PACKAGES="${COMMON_PACKAGES} 1password"
+  PKG_INSTALL="brew install"  
+elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+  bootstrap_linux
+  PACKAGES="${COMMON_PACKAGES}"
+  PKG_INSTALL="apt install"
+else
+  fail "Unsupported OS"
+fi
+
+$PKG_INSTALL $PACKAGES 
