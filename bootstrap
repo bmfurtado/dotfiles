@@ -59,7 +59,7 @@ COMMON_PACKAGES="git tmux stow"
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
   bootstrap_macos
-  PACKAGES="${COMMON_PACKAGES} 1password bettertouchtool karabiner-elements iterm2"
+  PACKAGES="${COMMON_PACKAGES} 1password bettertouchtool karabiner-elements iterm2 nikitabobko/tap/aerospace"
   PKG_INSTALL="brew install"  
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
   bootstrap_linux
