@@ -41,13 +41,13 @@ set_macos_defaults() {
   defaults write -g WebAutomaticSpellingCorrectionEnabled -bool false
 }
 
-boostrap_macos() {
+bootstrap_macos() {
   install_homebrew
   set_macos_defaults
   chsh -s /bin/zsh
 }
 
-boostrap_linux() {
+bootstrap_linux() {
   print "Nothing to do..."
 }
 
@@ -58,7 +58,7 @@ install_packages() {
 COMMON_PACKAGES="git tmux stow"
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-  boostrap_macos
+  bootstrap_macos
   PACKAGES="${COMMON_PACKAGES} 1password bettertouchtool karabiner-elements iterm2"
   PKG_INSTALL="brew install"  
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
