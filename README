@@ -1,0 +1,10 @@
+# Dotfiles
+
+## Bootstrapping a new machine
+Apart from being a repository for dotfiles, this also includes a boostrap script to run on new machines. The script does a bunch of preparation work which othewise would have been manual and also installs the tools required to use these dotfiles.
+
+Run the `bootstrap` script.
+
+## Linking the dotfiles
+
+Run the `link` script.

@@ -1,0 +1,12 @@
+error() {
+  echo $@ 1>&2
+}
+
+fail() {
+  error "$@"
+  exit 1
+}
+
+print() {
+  echo $@
+}

@@ -1,40 +1,65 @@
 #!/bin/bash
 
-error() {
-  echo $@ 1>&2
-}
-
-fail() {
-  error "$@"
-  exit 1
-}
-
-print() {
-  echo $@
-}
+source common_functions
 
 install_homebrew() {
   if command -v brew 2>&1 > /dev/null; then
     print "Homebrew is alrady installed..."
     return
   fi
-  /usr/bin/xcode-select --install
+  if $(xcode-select --print-path &> /dev/null); then
+    print "Xcode command line tools are already installed..."
+  else
+    print "Installing Xcode command line tools..."
+    /usr/bin/xcode-select --install
+    until $(xcode-select --print-path &> /dev/null); do
+      sleep 5
+    done
+  fi
+  print "Installing Homebrew..."
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  echo >> ~/.bash_profile
+  echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.bash_profile
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+}
+
+set_macos_defaults() {
+  # disable show recently used apps in dock
+  defaults write com.apple.dock "show-recents" -bool "false" && killall Dock
+  # use F1-12 keys as standard function keys, fn key to use special features
+  defaults write -g com.apple.keyboard.fnState -bool true
+  # disable smart quotes
+  defaults write -g NSAutomaticQuoteSubstitutionEnabled -bool false
+  # disable smart dashes
+  defaults write -g NSAutomaticDashSubstitutionEnabled -bool false
+  # disable automatic capitalization
+  defaults write -g NSAutomaticCapitalizationEnabled -bool false
+  # disable automatic period
+  defaults write -g NSAutomaticPeriodSubstitutionEnabled -bool false
+  # disable automatic spelling correction
+  defaults write -g NSAutomaticSpellingCorrectionEnabled -bool false
+  defaults write -g WebAutomaticSpellingCorrectionEnabled -bool false
 }
 
 boostrap_macos() {
   install_homebrew
+  set_macos_defaults
+  chsh -s /bin/zsh
 }
 
 boostrap_linux() {
-  echo "Nothing to do..."
+  print "Nothing to do..."
 }
 
-COMMON_PACKAGES="git tmux"
+install_packages() {
+  $PKG_INSTALL $@
+}
+
+COMMON_PACKAGES="git tmux stow"
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
   boostrap_macos
-  PACKAGES="${COMMON_PACKAGES} 1password"
+  PACKAGES="${COMMON_PACKAGES} 1password bettertouchtool karabiner-elements iterm2"
   PKG_INSTALL="brew install"  
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
   bootstrap_linux
