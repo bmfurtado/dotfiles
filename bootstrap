@@ -64,7 +64,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
   bootstrap_linux
   PACKAGES="${COMMON_PACKAGES}"
-  PKG_INSTALL="apt install"
+  PKG_INSTALL="sudo apt install"
 else
   fail "Unsupported OS"
 fi
