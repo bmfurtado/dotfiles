@@ -3,7 +3,7 @@
 COMMON_PACKAGES="zsh"
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-  PACKAGES="${COMMON_PACKAGES} ssh 1pw iterm2 karabiner"
+  PACKAGES="${COMMON_PACKAGES} ssh 1pw iterm2 karabiner aerospace"
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
   PACKAGES="${COMMON_PACKAGES}"
 else
