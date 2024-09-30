@@ -62,11 +62,11 @@ install_packages() {
   $PKG_INSTALL $@
 }
 
-COMMON_PACKAGES="git tmux stow"
+COMMON_PACKAGES="git tmux stow vim"
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
   bootstrap_macos
-  PACKAGES="${COMMON_PACKAGES} 1password bettertouchtool karabiner-elements iterm2 nikitabobko/tap/aerospace font-monaspace-nerd-font"
+  PACKAGES="${COMMON_PACKAGES} 1password bettertouchtool karabiner-elements iterm2 nikitabobko/tap/aerospace font-monaspace-nerd-font firefox"
   PKG_INSTALL="brew install"  
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
   bootstrap_linux
