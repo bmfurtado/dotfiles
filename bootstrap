@@ -62,7 +62,7 @@ install_packages() {
   $PKG_INSTALL $@
 }
 
-COMMON_PACKAGES="git tmux stow vim"
+COMMON_PACKAGES="git tmux stow vim fzf"
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
   bootstrap_macos
